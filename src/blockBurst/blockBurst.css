@@ -1,0 +1,80 @@
+@keyframes popOut {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes popIn {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .popOut {
+    animation: popOut 0.5s ease;
+  }
+  
+  .popIn {
+    animation: popIn 0.5s ease;
+  }
+  
+    
+    .highlight {
+      animation: highlight 0.5s ease-in-out;
+    }
+    
+    @keyframes neon-border {
+      0%, 100% {
+        text-shadow: 
+          0 0 5px #fff,
+          0 0 10px #fff,
+          0 0 12px #fff,
+          0 0 14px #00ff77,
+          0 0 18px #00ff77,
+          0 0 20px #00ff77;
+      }
+      50% {
+        text-shadow: 
+          0 0 3px #fff,
+          0 0 6px #fff,
+          0 0 9px #00ff77,
+          0 0 12px #00ff77,
+          0 0 15px #00ff77;
+      }
+    }
+    
+    .neon-border {
+      color: #fff;
+      animation: neon-border 1.5s ease-in-out infinite alternate;
+    }
+    
+
+
+    /*game*/
+
+
+    .game-grid {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+    }
+    
+    .grid-row {
+      display: flex;
+    }
+    
+    .grid-cell {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #ccc;
+    }
+    
