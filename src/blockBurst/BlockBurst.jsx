@@ -1,13 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import './blockBurst.css';
 
-const createEmptyGrid = () => Array.from({ length: 8 }, () => Array(8).fill(null));
+const createEmptyGrid = () => Array.from({ length: 12 }, () => Array(12).fill(null));
 
 const shapes = [
   { type: 'square', blocks: [[0, 0], [0, 1], [1, 0], [1, 1]] },
   { type: 'line', blocks: [[0, 0], [1, 0], [2, 0], [3, 0]] },
   { type: 'lShape', blocks: [[0, 0], [1, 0], [2, 0], [2, 1]] },
- { type: 'hyphenShape', blocks: [[0, 0], [0, 0], [0, 0], [0, 1]] }
+  { type: 'hyphenShape', blocks: [[0, 0], [0, 0], [0, 0], [0, 1]] },
+  // {
+  //   type: 'tShape', blocks: [[0, 0], [1, 0], [2, 0], [1, 1]]
+  // },
+  // {
+  //   type: 'sShape',
+  //   blocks: [[0, 1], [1, 0], [1, 1], [2, 0]]
+  // },
+  // {
+  //   type: 'zShape',
+  //   blocks: [[0, 0], [1, 0], [1, 1], [2, 1]]
+  // },
+  // {
+  //   type: 'stairShape',
+  //   blocks: [[0, 0], [0, 1], [1, 1], [1, 2]]
+  // },
+  // {
+  //   type: 'cornerShape',
+  //   blocks: [[0, 0], [0, 1], [1, 1]]
+  // },
+  // {
+  //   type: 'reverseLShape',
+  //   blocks: [[0, 1], [1, 1], [2, 1], [2, 0]]
+  // },
+  // {
+  //   type: 'pyramidShape',
+  //   blocks: [[1, 0], [0, 1], [1, 1], [2, 1]]
+  // }
+
 ];
 
 const BlockBurst = () => {
@@ -29,7 +57,7 @@ const BlockBurst = () => {
     return currentShape.blocks.every(([r, c]) => {
       const newRow = shapePosition.row + r + 1;
       const newCol = shapePosition.col + c;
-      return newRow < 8 && !grid[newRow][newCol];
+      return newRow < 12 && !grid[newRow][newCol];
     });
   };
 
@@ -47,7 +75,7 @@ const BlockBurst = () => {
     currentShape.blocks.forEach(([r, c]) => {
       const newRow = shapePosition.row + r;
       const newCol = shapePosition.col + c;
-      if (newRow < 8 && newCol < 8) {
+      if (newRow < 12 && newCol < 12) {
         newGrid[newRow][newCol] = currentShape.type;
       }
     });
@@ -59,11 +87,11 @@ const BlockBurst = () => {
 
   const checkAndClearRows = (newGrid) => {
     const clearedGrid = newGrid.filter((row) => row.some((cell) => cell === null));
-    const clearedRows = 8 - clearedGrid.length;
+    const clearedRows = 12 - clearedGrid.length;
     if (clearedRows > 0) {
       setScore((prevScore) => prevScore + clearedRows * 10);
-      while (clearedGrid.length < 8) {
-        clearedGrid.unshift(Array(8).fill(null));
+      while (clearedGrid.length < 12) {
+        clearedGrid.unshift(Array(12).fill(null));
       }
       setGrid(clearedGrid);
     }
@@ -80,7 +108,7 @@ const BlockBurst = () => {
     const canMove = currentShape.blocks.every(([r, c]) => {
       const newRow = shapePosition.row + r;
       const newCol = shapePosition.col + c + direction;
-      return newCol >= 0 && newCol < 8 && !grid[newRow][newCol];
+      return newCol >= 0 && newCol < 12 && !grid[newRow][newCol];
     });
 
     if (canMove) {
@@ -127,7 +155,7 @@ const BlockBurst = () => {
       currentShape.blocks.forEach(([r, c]) => {
         const newRow = shapePosition.row + r;
         const newCol = shapePosition.col + c;
-        if (newRow < 8 && newCol < 8) {
+        if (newRow < 12 && newCol < 12) {
           renderedGrid[newRow][newCol] = currentShape.type;
         }
       });

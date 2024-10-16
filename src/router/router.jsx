@@ -4,6 +4,7 @@ import BlockBurst from '../blockBurst/BlockBurst';
 import Home from '../blockBurst/Home';
 import { GuestLayout } from '../layouts/GuestLayout';
 import IndexHome from '../GuestInterface/IndexHome';
+import AboutUs from '../GuestInterface/components/AboutUs';
 
 
 const Router = () => {
@@ -13,6 +14,7 @@ const Router = () => {
       <Route path='/' element={<GuestLayout />}>
         <Route index element={<IndexHome />} />
         <Route path='start' element={<BlockBurst />} />
+        <Route path='about' element={<AboutUs />} />
 
       </Route>
     </Routes>

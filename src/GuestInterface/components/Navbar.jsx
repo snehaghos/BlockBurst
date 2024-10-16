@@ -16,6 +16,10 @@ const Navbar = () => {
     console.log("hi");
     navigate('/start');
   };
+  const handleHomeClick = () => {
+    console.log("hi");
+    navigate('/');
+  };
 
   return (
     <header className=" w-full p-4 text-white bg-slate-900">
@@ -24,7 +28,7 @@ const Navbar = () => {
         <nav>
           <ul className="flex space-x-4">
             <li><a href="#features" className="hover:underline">Features</a></li>
-            <li><a href="#examples" className="hover:underline">Examples</a></li>
+            <li><button className="hover:underline" onClick={handleHomeClick}>About us</button></li>
             <li><button className="hover:underline" onClick={handleAboutUsClick}>About us</button></li>
             <li><button className="hover:underline" onClick={handleBlockClick}>Block us</button></li>
             <li>
