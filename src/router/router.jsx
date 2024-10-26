@@ -17,6 +17,7 @@ const Router = () => {
         <Route path='about' element={<AboutUs />} />
 
       </Route>
+      
     </Routes>
 
   );

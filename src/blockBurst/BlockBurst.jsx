@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import './blockBurst.css';
 
 const createEmptyGrid = () => Array.from({ length: 12 }, () => Array(12).fill(null));
@@ -8,34 +9,6 @@ const shapes = [
   { type: 'line', blocks: [[0, 0], [1, 0], [2, 0], [3, 0]] },
   { type: 'lShape', blocks: [[0, 0], [1, 0], [2, 0], [2, 1]] },
   { type: 'hyphenShape', blocks: [[0, 0], [0, 0], [0, 0], [0, 1]] },
-  // {
-  //   type: 'tShape', blocks: [[0, 0], [1, 0], [2, 0], [1, 1]]
-  // },
-  // {
-  //   type: 'sShape',
-  //   blocks: [[0, 1], [1, 0], [1, 1], [2, 0]]
-  // },
-  // {
-  //   type: 'zShape',
-  //   blocks: [[0, 0], [1, 0], [1, 1], [2, 1]]
-  // },
-  // {
-  //   type: 'stairShape',
-  //   blocks: [[0, 0], [0, 1], [1, 1], [1, 2]]
-  // },
-  // {
-  //   type: 'cornerShape',
-  //   blocks: [[0, 0], [0, 1], [1, 1]]
-  // },
-  // {
-  //   type: 'reverseLShape',
-  //   blocks: [[0, 1], [1, 1], [2, 1], [2, 0]]
-  // },
-  // {
-  //   type: 'pyramidShape',
-  //   blocks: [[1, 0], [0, 1], [1, 1], [2, 1]]
-  // }
-
 ];
 
 const BlockBurst = () => {
@@ -46,6 +19,7 @@ const BlockBurst = () => {
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
 
+ 
   const spawnNewShape = () => {
     const newShape = shapes[Math.floor(Math.random() * shapes.length)];
     setCurrentShape(newShape);
@@ -162,52 +136,93 @@ const BlockBurst = () => {
     }
 
     return renderedGrid.map((row, rowIndex) => (
-      <div key={rowIndex} className="grid-row flex">
+      <motion.div key={rowIndex} className="grid-row flex">
         {row.map((cell, cellIndex) => (
-          <div
+          <motion.div
             key={cellIndex}
-            className={`grid-cell w-8 h-8 border border-gray-300 ${cell ? 'bg-blue-500' : 'bg-white'}`}
+            className={`grid-cell w-6 h-6 border border-gray-300 ${cell ? 'bg-blue-500' : 'bg-transparent'}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, scale: cell ? 1.2 : 1 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
           />
         ))}
-      </div>
+      </motion.div>
     ));
   };
 
   return (
-    <div className="block-burst p-4 flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">BlockBurst Game</h1>
+    <motion.div
+      className="block-burst p-4 flex flex-col items-center justify-center min-h-screen"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* <motion.h1
+        className="text-4xl font-bold mb-4 neon-title"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, type: 'spring', stiffness: 50 }}
+      >
+        BlockBurst Game
+      </motion.h1> */}
+
       {!startGame ? (
-        <button
+        <motion.button
           onClick={() => setStartGame(true)}
-          className="px-4 py-2 bg-green-600 text-white rounded"
+          className="px-6 py-3 bg-green-600 text-white rounded-lg start-button"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           Start Game
-        </button>
+        </motion.button>
       ) : (
         <>
-          <h2 className="text-lg mb-4">Score: {score}</h2>
+          <motion.h2
+            className="text-lg mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            Score: {score}
+          </motion.h2>
           {isGameOver ? (
-            <h2 className="text-red-600">Game Over!</h2>
+            <motion.h2
+              className="game-over"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 10 }}
+            >
+              Game Over!
+            </motion.h2>
           ) : (
-            <div className="game-grid">{renderGrid()}</div>
+            <motion.div
+              className="game-grid"
+              initial={{ y: 50 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
+            >
+              {renderGrid()}
+            </motion.div>
           )}
-          <div className="mt-4">
-            <button
+          <div className="mt-4 flex space-x-4">
+            <motion.button
               onClick={() => moveShapeHorizontal(-1)}
-              className="px-4 py-2 bg-blue-600 text-white rounded mr-2"
+              className="px-4 py-2 bg-blue-600 text-white rounded"
+              whileHover={{ scale: 1.05 }}
             >
               Move Left
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => moveShapeHorizontal(1)}
               className="px-4 py-2 bg-blue-600 text-white rounded"
+              whileHover={{ scale: 1.05 }}
             >
               Move Right
-            </button>
+            </motion.button>
           </div>
         </>
       )}
-    </div>
+    </motion.div>
   );
 };
 

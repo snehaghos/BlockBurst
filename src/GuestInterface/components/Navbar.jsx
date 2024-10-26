@@ -22,13 +22,13 @@ const Navbar = () => {
   };
 
   return (
-    <header className=" w-full p-4 text-white bg-slate-900">
+    <header className=" w-full p-4 text-white bg-slate-900/10 absolute z-50" >
       <div className="container flex items-center justify-between mx-auto">
         <h1 className="text-2xl font-bold">BlockBurst</h1>
         <nav>
           <ul className="flex space-x-4">
             <li><a href="#features" className="hover:underline">Features</a></li>
-            <li><button className="hover:underline" onClick={handleHomeClick}>About us</button></li>
+            <li><button className="hover:underline" onClick={handleHomeClick}>Home</button></li>
             <li><button className="hover:underline" onClick={handleAboutUsClick}>About us</button></li>
             <li><button className="hover:underline" onClick={handleBlockClick}>Block us</button></li>
             <li>
